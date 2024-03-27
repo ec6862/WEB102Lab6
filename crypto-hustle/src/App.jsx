@@ -9,14 +9,24 @@ const App = () => {
   const [list,setList] = useState(null);
   useEffect(() => {
     const fetchAllCoinData = async () => {
-      const response = await fetch()
+      const response = await fetch("https://min-api.cryptocompare.com/data/all/coinlist", {
+        headers: {
+          'Apikey': API_KEY
+        }});
+      const json = await response.json();
+      console.log(json);
+      setList(json);
     }
-    }
-  }, []);
+    fetchAllCoinData().catch(console.error);
+  }
+  , []);
 
   return (
-    <div>
-      
+    <div className='whole-page'>
+      <h1>My Crypto List</h1>
+      <ul>
+        
+      </ul>
     </div>
   )
 }
