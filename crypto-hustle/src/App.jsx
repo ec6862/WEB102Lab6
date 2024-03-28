@@ -11,8 +11,9 @@ const App = () => {
     const fetchAllCoinData = async () => {
       const response = await fetch("https://min-api.cryptocompare.com/data/all/coinlist", {
         headers: {
-          'Apikey': API_KEY
-        }});
+          authorization: `Apikey ${API_KEY}`
+        }
+      });
       const json = await response.json();
       console.log(json);
       setList(json);
@@ -24,9 +25,13 @@ const App = () => {
   return (
     <div className='whole-page'>
       <h1>My Crypto List</h1>
-      <ul>
-        
-      </ul>
+        <ul>
+          {list && Object.entries(list.Data).map(([coin]) =>
+            list.Data[coin].PlatformType === "blockchain" ? (
+              <li key={list.Data[coin].FullName}>{list.Data[coin].FullName}</li>
+            ) : null
+          )}
+        </ul>
     </div>
   )
 }
